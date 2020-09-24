@@ -11,21 +11,26 @@ const firebaseConfig = {
   measurementId: 'G-CYE5NQHY1T',
 }
 
-!firebase.app.length && firebase.initializeApp(firebaseConfig)
+!firebase.apps.length && firebase.initializeApp(firebaseConfig)
 
-export const loginWithGithub = () => {
-  const githbuProvider = new firebase.auth.GithubAuthProvider()
-  return firebase
-    .auth()
-    .signInWithPopup(githbuProvider)
-    .then(user => {
-      const { aditionalUserInfo } = user
-      const { username, profile } = aditionalUserInfo
-      const { avatar_url, blog } = profile
-      return {
-        avatar: avatar_url,
-        username,
-        url: blog,
-      }
-    })
+const mapUserFromFirebaseAuthToUser = user => {
+  const { displayName, email, photoURL } = user
+
+  return {
+    avatar: photoURL,
+    username: displayName,
+    email,
+  }
+}
+
+export const onAuthStateChanged = onChange => {
+  return firebase.auth().onAuthStateChanged(user => {
+    const normalizedUser = mapUserFromFirebaseAuthToUser(user)
+    onChange(normalizedUser)
+  })
+}
+
+export const loginWithGithub = async () => {
+  const githubProvider = new firebase.auth.GithubAuthProvider()
+  return firebase.auth().signInWithPopup(githubProvider)
 }
