@@ -1,3 +1,8 @@
+/**Este archivo no estará en el resultado final, ha sido un ejemplo de como hacer
+ * rutas, yo personalmente lo dejo como apoyo en un futuro, lo veo interesante pero
+ * no va a pertenecer a la app devter
+ */
+
 import Link from 'next/link'
 import AppLayout from '../../components/AppLayout'
 
