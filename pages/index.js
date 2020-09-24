@@ -17,7 +17,6 @@ export default function Home() {
   const handleClick = () => {
     loginWithGithub()
       .then(user => {
-        const { avatar, username, url } = user
         setUser({ user })
       })
       .catch(err => {
