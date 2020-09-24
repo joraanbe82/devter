@@ -5,12 +5,12 @@ import { addOpacityToColor } from '../../styles/utils'
 
 const backgroundColor = addOpacityToColor(colors.primary, 0.3)
 
-/**metodo para pasar estilo globales en toda la app */
+/** método para pasar estilo globales en toda la app */
 export const globalStyles = css.global`
   html,
   body {
-    background-image: radial-gradient(${backgroundColor} 1px, transparent 1px),
-      radial-gradient(${backgroundColor} 1px, transparent 1px);
+    background-image: radial-gradient(${backgroundColor} 1px, #fdfdfd 1px),
+      radial-gradient(${backgroundColor} 1px, #fdfdfd 1px);
 
     background-position: 0 0, 25px 25px;
     background-size: 50px 50px;
