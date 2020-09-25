@@ -1,12 +1,14 @@
-// import styles from '../styles/Home.module.css'
+import { useEffect, useState } from 'react'
+
 import AppLayout from 'components/AppLayout'
+import Avatar from 'components/Avatar'
 import Button from 'components/Button'
-import { colors } from '../styles/theme'
 import Github from 'components/Icons/Github'
+import Logo from 'components/Icons/Logo'
 
 import { loginWithGithub, onAuthStateChanged } from 'firebase/client'
-import { useEffect, useState } from 'react'
-import Avatar from 'components/Avatar'
+
+import { colors } from '../styles/theme'
 
 export default function Home() {
   const [user, setUser] = useState(undefined)
@@ -29,7 +31,7 @@ export default function Home() {
     <>
       <AppLayout>
         <section>
-          <img src='/devter-logo.png' alt='logo' />
+          <Logo width='100' />
           <h1>Devter</h1>
           <h2>Talk about development with developers 👨👩‍🦰</h2>
 
@@ -65,12 +67,13 @@ export default function Home() {
           place-items: center;
         }
         h1 {
-          color: ${colors.secondary};
+          color: ${colors.primary};
           font-weight: 800;
+          font-size: 32px;
           margin-bottom: 16px;
         }
         h2 {
-          color: ${colors.primary};
+          color: ${colors.secondary};
           font-size: 21px;
           margin: 0;
         }

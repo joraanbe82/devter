@@ -1,3 +1,8 @@
+/*Archivo para hacer que los imports puedan hacerse con pabsolute path que 
+lo que significa es que no es necesario usar ../../components por ejemplo para
+acceder a un archivo de la carpeta, sino que se puedan importar desde la misma
+Esto es sobre todo para que los componentes se vean menos cargados de código y más 
+accesibles y por supuesto es totalmente opcional*/
 {
   "compilerOptions": {
     "baseUrl": "."
