@@ -50,7 +50,6 @@ export default function Home() {
                   src={user.avatar}
                   text={user.username}
                 />
-                {/* <strong>{user.username}</strong> */}
               </div>
             )}
           </div>
@@ -59,6 +58,9 @@ export default function Home() {
       <style jsx>{`
         img {
           width: 120px;
+        }
+        div {
+          margin-top: 16px;
         }
         section {
           display: grid;
@@ -76,6 +78,7 @@ export default function Home() {
           color: ${colors.secondary};
           font-size: 21px;
           margin: 0;
+          text-align: center;
         }
       `}</style>
       <style jsx global>{``}</style>
