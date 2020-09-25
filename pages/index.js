@@ -7,24 +7,31 @@ import Github from 'components/Icons/Github'
 import Logo from 'components/Icons/Logo'
 
 import { loginWithGithub, onAuthStateChanged } from 'firebase/client'
-
+import { useRouter } from 'next/router'
 import { colors } from '../styles/theme'
+
+const USER_STATES = {
+  NOT_LOGGED: null,
+  NOT_KNOWN: undefined,
+}
 
 export default function Home() {
   const [user, setUser] = useState(undefined)
+
+  const router = useRouter()
 
   useEffect(() => {
     onAuthStateChanged(setUser)
   }, [])
 
+  useEffect(() => {
+    user && router.replace('/home')
+  }, [user])
+
   const handleClick = () => {
-    loginWithGithub()
-      .then(user => {
-        setUser({ user })
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    loginWithGithub().catch(err => {
+      console.log(err)
+    })
   }
 
   return (
@@ -36,20 +43,16 @@ export default function Home() {
           <h2>Talk about development with developers 👨👩‍🦰</h2>
 
           <div>
-            {user === null && (
+            {user === USER_STATES.NOT_LOGGED && (
               <Button onClick={handleClick}>
                 <Github fill='#fff' width={24} height={24} />
                 Login with Github
               </Button>
             )}
-            {user && user.avatar && (
+            {user === USER_STATES.NOT_KNOWN && (
               <div>
-                <Avatar
-                  withText
-                  alt={user.username}
-                  src={user.avatar}
-                  text={user.username}
-                />
+                <img src='/spinner.gif' />
+                Loading...
               </div>
             )}
           </div>
@@ -61,6 +64,8 @@ export default function Home() {
         }
         div {
           margin-top: 16px;
+          align-items: center;
+          display: flex;
         }
         section {
           display: grid;
