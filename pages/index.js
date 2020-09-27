@@ -27,6 +27,10 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>Devter 👾</title>
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
       <AppLayout>
         <section>
           <Logo width='100' />
