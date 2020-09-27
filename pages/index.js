@@ -4,6 +4,7 @@ import AppLayout from 'components/AppLayout'
 import Button from 'components/Button'
 import Github from 'components/Icons/Github'
 import Logo from 'components/Icons/Logo'
+import Head from 'next/head'
 
 import { loginWithGithub } from 'firebase/client'
 import { useRouter } from 'next/router'

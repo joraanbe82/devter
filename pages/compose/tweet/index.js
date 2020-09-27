@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { addDevit, uploadImage } from 'firebase/client'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import Avatar from 'components/Avatar'
 
 const COMPOSE_STATES = {
   USER_NOT_KNOWN: 0,
@@ -60,6 +61,7 @@ export default function ComposeTweet() {
       content: message,
       userId: user.uid,
       userName: user.userName,
+      img: imgURL,
     })
       .then(() => {
         router.push('/home')
@@ -100,22 +102,30 @@ export default function ComposeTweet() {
         <Head>
           <title>Crear un devit / Devter</title>
         </Head>
-        <form onSubmit={handleSubmit}>
-          <textarea
-            onChange={handleChange}
-            onDragEnter={handleDragEnter}
-            onDragLeave={handleDragLeave}
-            onDrop={handleDrop}
-            placeholder='¿Qué está pasando?'
-          ></textarea>
-          {imgURL && (
-            <section>
-              <button onClick={() => setImgURL(null)}>x</button>
-              <img src={imgURL} />
+        <section className='form-container'>
+          {user && (
+            <section className='avatar-container'>
+              <Avatar src={user.avatar} />
             </section>
           )}
-          <Button disabled={isButtonDisabled}>Devitear</Button>
-        </form>
+
+          <form onSubmit={handleSubmit}>
+            <textarea
+              onChange={handleChange}
+              onDragEnter={handleDragEnter}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              placeholder='¿Qué está pasando?'
+            ></textarea>
+            {imgURL && (
+              <section className='remove-img'>
+                <button onClick={() => setImgURL(null)}>x</button>
+                <img src={imgURL} />
+              </section>
+            )}
+            <Button disabled={isButtonDisabled}>Devitear</Button>
+          </form>
+        </section>
       </AppLayout>
       <style jsx>{`
         div {
@@ -143,7 +153,16 @@ export default function ComposeTweet() {
           height: auto;
           width: 100%;
         }
-        section {
+        .avatar-container {
+          margin-top: 20px;
+          padding-left: 10px;
+        }
+        .form-container {
+          align-itmes: flex-start;
+          display: flex;
+        }
+
+        .remove-img {
           position: relative;
         }
 

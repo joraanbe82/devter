@@ -32,15 +32,16 @@ export default function HomePage() {
         </header>
         <section>
           {timeline.map(
-            ({ id, userName, avatar, content, userId, createdAt }) => (
+            ({ id, userName, avatar, content, img, userId, createdAt }) => (
               <Devit
                 avatar={avatar}
+                content={content}
                 createdAt={createdAt}
                 id={id}
+                img={img}
                 key={id}
-                content={content}
-                userName={userName}
                 userId={userId}
+                userName={userName}
               />
             ),
           )}
