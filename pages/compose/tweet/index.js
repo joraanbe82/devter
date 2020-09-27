@@ -1,4 +1,3 @@
-import AppLayout from 'components/AppLayout'
 import Button from 'components/Button'
 import useUser from 'hooks/useUser'
 import { useEffect, useState } from 'react'
@@ -98,35 +97,34 @@ export default function ComposeTweet() {
 
   return (
     <>
-      <AppLayout>
-        <Head>
-          <title>Crear un devit / Devter</title>
-        </Head>
-        <section className='form-container'>
-          {user && (
-            <section className='avatar-container'>
-              <Avatar src={user.avatar} />
+      <Head>
+        <title>Crear un devit / Devter</title>
+      </Head>
+      <section className='form-container'>
+        {user && (
+          <section className='avatar-container'>
+            <Avatar src={user.avatar} />
+          </section>
+        )}
+
+        <form onSubmit={handleSubmit}>
+          <textarea
+            onChange={handleChange}
+            onDragEnter={handleDragEnter}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            placeholder='¿Qué está pasando?'
+          ></textarea>
+          {imgURL && (
+            <section className='remove-img'>
+              <button onClick={() => setImgURL(null)}>x</button>
+              <img src={imgURL} />
             </section>
           )}
+          <Button disabled={isButtonDisabled}>Devitear</Button>
+        </form>
+      </section>
 
-          <form onSubmit={handleSubmit}>
-            <textarea
-              onChange={handleChange}
-              onDragEnter={handleDragEnter}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-              placeholder='¿Qué está pasando?'
-            ></textarea>
-            {imgURL && (
-              <section className='remove-img'>
-                <button onClick={() => setImgURL(null)}>x</button>
-                <img src={imgURL} />
-              </section>
-            )}
-            <Button disabled={isButtonDisabled}>Devitear</Button>
-          </form>
-        </section>
-      </AppLayout>
       <style jsx>{`
         div {
           padding: 15px;
