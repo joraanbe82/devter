@@ -22,7 +22,7 @@ export default function Devit({
           <header>
             <strong>{userName}</strong>
             <span> - </span>
-            <date>{timeago}</date>
+            <time>{timeago}</time>
           </header>
 
           <p>{content}</p>
@@ -40,7 +40,7 @@ export default function Devit({
           margin-right: 10px;
         }
 
-        date {
+        time {
           color: #555;
           font-size: 14px;
         }

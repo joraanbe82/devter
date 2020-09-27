@@ -1,7 +1,7 @@
 export default function DevitPage() {
   return (
     <>
-      lo podemos cambiar
+      devit o tweet con la id de la url
       <style jsx>{``}</style>
     </>
   )
