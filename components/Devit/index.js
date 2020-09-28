@@ -16,13 +16,13 @@ export default function Devit({
   const createdAtFormated = useDateTimeFormat(createdAt)
   const router = useRouter()
 
-  // const handleArticleClick = e => {
-  //   e.preventDefault()
-  //   router.push('/status/[id]', `/status/${id}`)
-  // }
+  const handleArticleClick = e => {
+    e.preventDefault()
+    router.push(`/status/${id}`)
+  }
   return (
     <>
-      <article>
+      <article onClick={handleArticleClick}>
         <div>
           <Avatar alt={userName} src={avatar} />
         </div>
@@ -56,6 +56,11 @@ export default function Devit({
           border-bottom: 1px solid #eee;
           display: flex;
           padding: 10px 15px;
+        }
+
+        article:hover {
+          background: #f5f8fa;
+          cursor: pointer;
         }
 
         div {
