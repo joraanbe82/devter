@@ -1,4 +1,5 @@
 import * as firebase from 'firebase'
+import { useCallback } from 'react'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBCd7gjVOMo6uSBt4lf_PhYPmTGAe39-tI',
@@ -51,25 +52,38 @@ export const addDevit = ({ avatar, content, img, userId, userName }) => {
   })
 }
 
-export const fetchLatestDevits = async () => {
+const mapDevitFromFirebaseToDevitObject = doc => {
+  const data = doc.data()
+  const id = doc.id
+  const { createdAt } = data
+
+  return {
+    ...data,
+    id,
+    createdAt: +createdAt.toDate(),
+  }
+}
+
+export const listenLatestDevirs = callback => {
   return db
     .collection('devits')
     .orderBy('createdAt', 'desc')
-    .get()
-    .then(({ docs }) => {
-      return docs.map(doc => {
-        const data = doc.data()
-        const id = doc.id
-        const { createdAt } = data
-
-        return {
-          ...data,
-          id,
-          createdAt: +createdAt.toDate(),
-        }
-      })
+    .limit(20)
+    .onSnapshot(({ docs }) => {
+      const newDevits = docs.map(doc => mapDevitFromFirebaseToDevitObject(doc))
+      callback(newDevits)
     })
 }
+
+// export const fetchLatestDevits = async () => {
+//   return db
+//     .collection('devits')
+//     .orderBy('createdAt', 'desc')
+//     .get()
+//     .then(({ docs }) => {
+//       return docs.map(mapDevitFromFirebaseToDevitObject)
+//     })
+// }
 
 export const uploadImage = file => {
   const ref = firebase.storage().ref(`images/${file.name}`)

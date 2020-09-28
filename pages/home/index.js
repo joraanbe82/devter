@@ -1,5 +1,5 @@
 import Devit from 'components/Devit'
-import { fetchLatestDevits } from 'firebase/client'
+import { listenLatestDevirs } from 'firebase/client'
 import useUSer from 'hooks/useUser'
 import { useEffect, useState } from 'react'
 
@@ -15,10 +15,14 @@ export default function HomePage() {
   const user = useUSer()
 
   useEffect(() => {
-    user &&
-      fetchLatestDevits().then(timeline => {
-        setTimeline(timeline)
+    let unsubscribe
+
+    if (user) {
+      unsubscribe = listenLatestDevirs(newDevits => {
+        setTimeline(newDevits)
       })
+    }
+    return () => unsubscribe && unsubscribe()
   }, [user])
   return (
     <>
@@ -45,12 +49,12 @@ export default function HomePage() {
         )}
       </section>
       <nav>
-        <Link href='/compose/tweet'>
+        <Link href='/home'>
           <a>
             <Home width={32} height={32} stroke='#09f' />
           </a>
         </Link>
-        <Link href='/compose/tweet'>
+        <Link href='/search'>
           <a>
             <Search width={32} height={32} stroke='#09f' />
           </a>
