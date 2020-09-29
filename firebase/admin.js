@@ -6,7 +6,7 @@ const serviceAccount = require('./firebase-keys.json')
 try {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: 'https://devter-df43a.firebaseio.com',
+    databaseURL: process.env.FIREBASE_DATABASE_URL,
   })
 } catch (e) {}
 
